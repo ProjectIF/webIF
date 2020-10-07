@@ -1,0 +1,30 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "description": "Projeto destinado a criação de uma plataforma web para aulas online",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV= test jest",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": " https://github.com/ProjectIF"
+  },
+  "author": "Yuri, Thales , Carlos Severo , Rodrigo Freitas",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "nodemon": "^2.0.4",
+    "pg": "^8.4.0",
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.5.0",
+    "sqlite3": "^5.0.0"
+  }
+}
