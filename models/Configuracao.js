@@ -93,7 +93,7 @@ class Configuracao extends Model {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
-                    v
+                    
                 },
             },
 

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("unidades", {
+    return queryInterface.createTable("recursos", {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
@@ -17,18 +17,29 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
-     
-      disciplina_id: {
+      link: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
+      },
+      unidade_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'disciplinas',
+            tableName: 'unidades',
           },
           key: 'id'
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        allowNull: false
+       
+      },
+      tipo_id: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'tipos',
+          },
+          key: 'id'
+        },
+       
       },
 
       created_at: {
@@ -43,6 +54,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("unidades");
+    return queryInterface.dropTable("recursos");
   }
 };

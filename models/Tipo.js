@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Papel extends Model {
+class Tipo extends Model {
     static init(sequelize){
         super.init({
             descricao:{
@@ -16,10 +16,9 @@ class Papel extends Model {
         })
     }
     static associate(models) {
-        this.hasMany(models.Configuracao, { onDelete: 'CASCADE', hooks: true });
-        this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
+        this.hasMany(models.Recurso, { onDelete: 'CASCADE', hooks: true })
     }
     
 }
 
-module.exports = Papel;
+module.exports = Tipo;

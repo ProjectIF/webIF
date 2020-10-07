@@ -1,25 +1,28 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Papel extends Model {
+class Participante_Avaliacao extends Model {
     static init(sequelize){
         super.init({
-            descricao:{
-                type: DataTypes.TEXT,
+            nota:{
+                type: DataTypes.FLOAT,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
                 },
             },
+            
+            
+
         },{
             sequelize
         })
     }
     static associate(models) {
-        this.hasMany(models.Configuracao, { onDelete: 'CASCADE', hooks: true });
-        this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
+        this.belongsTo(models.Tipo_Avaliacao, { onDelete: 'CASCADE', hooks: true })
+        this.belongsTo(models.Unidade, { onDelete: 'CASCADE', hooks: true })
     }
     
 }
 
-module.exports = Papel;
+module.exports = Participante_Avaliacao;

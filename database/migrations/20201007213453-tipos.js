@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("unidades", {
+    return queryInterface.createTable("tipos", {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
@@ -13,23 +13,7 @@ module.exports = {
         type: Sequelize.DataTypes.TEXT,
         allowNull: false
       },
-      titulo: {
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false
-      },
-     
-      disciplina_id: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: {
-            tableName: 'disciplinas',
-          },
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        allowNull: false
-      },
+      
 
       created_at: {
         type: Sequelize.DataTypes.DATE,
@@ -43,6 +27,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("unidades");
+    return queryInterface.dropTable("tipos");
   }
 };

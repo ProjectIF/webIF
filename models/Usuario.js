@@ -1,5 +1,3 @@
-
-
 const { Model, DataTypes } = require('sequelize');
 
 class Usuario extends Model {
@@ -54,6 +52,9 @@ class Usuario extends Model {
         },{
             sequelize
         })
+    }
+    static associate(models) {
+        this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
     }
 }
 

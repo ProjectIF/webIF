@@ -2,27 +2,49 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("unidades", {
+    return queryInterface.createTable("participantes", {
       id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      descricao: {
-        type: Sequelize.DataTypes.TEXT,
-        allowNull: false
-      },
-      titulo: {
+      matricula: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
+      
      
       disciplina_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
             tableName: 'disciplinas',
+          },
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: false
+      },
+      usuario_id: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'usuarios',
+          },
+          key: 'id'
+        },
+      
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        allowNull: false
+      },
+      papel_id: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'papeis',
           },
           key: 'id'
         },
@@ -43,6 +65,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("unidades");
+    return queryInterface.dropTable("participantes");
   }
 };

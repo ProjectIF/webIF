@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Disciplina extends Model {
-    static init(sequelize) {
+class Avaliacao extends Model {
+    static init(sequelize){
         super.init({
-            descricao: {
+            descricao:{
                 type: DataTypes.TEXT,
                 validate: {
                     notEmpty: {
@@ -11,49 +11,58 @@ class Disciplina extends Model {
                     },
                 },
             },
-            ementa: {
-                type: DataTypes.TEXT,
+            link:{
+                type: DataTypes.STRING,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
                 },
             },
-            horas: {
-                type: DataTypes.INTEGER,
+            data_inicial:{
+                type: DataTypes.DATE,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
                 },
             },
-            periodo: {
-                type: DataTypes.INTEGER,
+            data_final:{
+                type: DataTypes.DATE,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
                 },
             },
-            calculo_avaliacoes: {
-                type: DataTypes.FLOAT,
+            hora_inicial:{
+                type: DataTypes.TIME,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
                     },
                 },
             },
-          
-        }, {
+            hora_final:{
+                type: DataTypes.TIME,
+                validate: {
+                    notEmpty: {
+                        msg: "Campo não pode estar vazio"
+                    },
+                },
+            },
+            
+
+        },{
             sequelize
         })
     }
     static associate(models) {
-        this.belongsTo(models.Curso, { onDelete: 'CASCADE', hooks: true });
-        this.hasMany(models.Unidade, { onDelete: 'CASCADE', hooks: true });
-        this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
+        this.belongsTo(models.Tipo_Avaliacao, { onDelete: 'CASCADE', hooks: true })
+        this.belongsTo(models.Unidade, { onDelete: 'CASCADE', hooks: true })
+        this.belongsToMany(models.Participante, { through: models.Participante_Avaliacao, as: 'participante' , onDelete: 'CASCADE', hooks: true })
     }
-
+    
 }
 
-module.exports = Disciplina;
+module.exports = Avaliacao;
