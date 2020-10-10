@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
+      celular: {
+        type: Sequelize.DataTypes.BIGINT,
+        allowNull: false
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false
