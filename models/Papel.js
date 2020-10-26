@@ -12,12 +12,13 @@ class Papel extends Model {
                 },
             },
         },{
-            sequelize
+            sequelize,
+            tableName:"papeis"
         })
     }
     static associate(models) {
-        this.hasMany(models.Configuracao, { onDelete: 'CASCADE', hooks: true });
-        this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
+        this.belongsTo(models.Configuracao, { onDelete: 'CASCADE', hooks: true, foreignKey:"configuracao_id" });
+        // this.hasMany(models.Participante, { onDelete: 'CASCADE', hooks: true });
     }
     
 }

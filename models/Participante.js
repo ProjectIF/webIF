@@ -16,7 +16,7 @@ class Participante extends Model {
         })
     }
     static associate(models) {
-        this.belongsTo(models.Papel, { onDelete: 'CASCADE', hooks: true });
+        // this.belongsTo(models.Papel, { onDelete: 'CASCADE', hooks: true });
         this.belongsTo(models.Usuario, { onDelete: 'CASCADE', hooks: true });
         this.belongsTo(models.Disciplina, { onDelete: 'CASCADE', hooks: true });
         this.hasMany(models.Postagem, { onDelete: 'CASCADE', hooks: true });

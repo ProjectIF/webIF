@@ -96,14 +96,16 @@ class Configuracao extends Model {
                     
                 },
             },
-
+            
 
         }, {
-            sequelize
+            sequelize,
+            tableName:"configuracoes"
+            
         })
     }
     static associate(models) {
-        this.belongsTo(models.Papel, { onDelete: 'CASCADE', hooks: true });
+        this.hasMany(models.Papel, { onDelete: 'CASCADE', hooks: true });
         
     }
 }
