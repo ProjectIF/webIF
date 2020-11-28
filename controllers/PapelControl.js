@@ -1,12 +1,20 @@
 const Papel = require("../models/Papel");
+const Config = require("../models/Configuracao");
 
 
 const reg = async (req, res) => {
     const { descricao, configuracao_id } = req.body;
-    console.log(configuracao_id)
+    let config = undefined;
     try {
-        const papel = await Papel.create({ descricao, configuracao_id});
-        res.status(200).json(papel);
+        config  = await Config.findByPk(configuracao_id);
+        if(config){
+
+            const papel = await Papel.create({ descricao, ConfiguracaoId:configuracao_id});
+            res.status(200).json(papel);
+        }else{
+            throw "Configuração inexistente"
+        }
+        
     } catch (error) {
         console.log(error)
         res.status(400).json(error);
@@ -23,12 +31,22 @@ const list = async (req, res) => {
     }
 
 }
+const getOne = async (req, res) => {
+    try {
+        const papel = await Papel.findOne({where:{id:req.params.id}});
+        res.status(200).json(papel);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error);
+    }
+
+}
 const upd = async (req, res) => {
     const { descricao, configuracao_id } = req.body;
     const id = req.params.id;
 
     try {
-        const papel = await Papel.update({ descricao, configuracao_id }, { where: { id: id } });
+        const papel = await Papel.update({ descricao, ConfiguracaoId: configuracao_id }, { where: { id: id } });
         res.status(200).json(papel);
     } catch (error) {
         console.log(error)
@@ -54,4 +72,4 @@ const del = async (req, res) => {
     }
 }
 
-module.exports = { reg, upd, list, del }
+module.exports = { reg, upd, getOne,list, del }

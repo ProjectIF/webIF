@@ -8,14 +8,13 @@ const reg = async (req, res) => {
         usuario.setAttributes("senha", null)
         res.status(200).json(usuario);
     } catch (error) {
-        console.log(error)
-        res.status(400).json(error);
+        res.status(400).json(error.errors[0].message);
     }
 
 }
 const list = async (req, res) => {
     try {
-        const usuario = await Usuario.findAll();
+        const usuario = await Usuario.findAll({attributes: { exclude: ['senha'] } });
         res.status(200).json(usuario);
     } catch (error) {
         console.log(error)

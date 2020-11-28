@@ -2,10 +2,10 @@ const Configuracao = require("../models/Configuracao");
 
 
 const reg = async (req, res) => {
-    const { manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso 
+    const { titulo, manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso 
         ,manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao } = req.body;
     try {
-        const config = await Configuracao.create({ manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso,manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao  });
+        const config = await Configuracao.create({ titulo,manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso,manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao  });
         res.status(200).json(config);
     } catch (error) {
         console.log(error)
@@ -23,12 +23,22 @@ const list = async (req, res) => {
     }
 
 }
+const getOne = async (req, res) => {
+    try {
+        const config = await Configuracao.findOne({where:{id:req.params.id}});
+        res.status(200).json(config);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error);
+    }
+
+}
 const upd = async (req,res) =>{
-    const { manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso, manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao } = req.body;
+    const {titulo, manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso, manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao } = req.body;
     const id = req.params.id;
     
     try {
-        const config = await Configuracao.update({  manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso 
+        const config = await Configuracao.update({ titulo, manter_curso, manter_disciplina ,manter_unidade ,manter_recurso ,manter_tipo_recurso 
             ,manter_avaliacao ,manter_papel ,manter_participante,manter_usuario,manter_tipo_avaliacao }, {where:{id:id}});
         res.status(200).json(config);
     } catch (error) {
@@ -55,4 +65,4 @@ const del = async (req,res) =>{
     }
 }
 
-module.exports = { reg, upd, list, del }
+module.exports = { reg, upd, list, del ,getOne}

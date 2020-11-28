@@ -3,7 +3,16 @@ const { Model, DataTypes } = require('sequelize');
 class Configuracao extends Model {
     static init(sequelize) {
         super.init({
-            manter_curso: {
+            titulo: {
+                type: DataTypes.TEXT,
+                defaultValue: '',
+                validate: {
+                    notEmpty: {
+                        msg: "Campo não pode estar vazio"
+                    },
+
+                },
+            }, manter_curso: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
                 validate: {

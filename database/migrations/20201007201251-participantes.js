@@ -11,7 +11,7 @@ module.exports = {
       },
       matricula: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       
      

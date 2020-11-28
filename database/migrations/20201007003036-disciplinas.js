@@ -22,11 +22,11 @@ module.exports = {
         allowNull: false
       },
       periodo: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
       calculo_avaliacoes: {
-        type: Sequelize.DataTypes.FLOAT,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
       curso_id: {

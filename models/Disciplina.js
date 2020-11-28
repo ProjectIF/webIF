@@ -28,7 +28,7 @@ class Disciplina extends Model {
                 },
             },
             periodo: {
-                type: DataTypes.INTEGER,
+                type: DataTypes.STRING,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
@@ -36,7 +36,7 @@ class Disciplina extends Model {
                 },
             },
             calculo_avaliacoes: {
-                type: DataTypes.FLOAT,
+                type: DataTypes.STRING,
                 validate: {
                     notEmpty: {
                         msg: "Campo não pode estar vazio"
