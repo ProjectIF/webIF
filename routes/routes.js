@@ -17,6 +17,7 @@ routes.post("/usuarios", UsuarioControl.reg );
 routes.get("/usuarios", UsuarioControl.list );
 routes.post("/usuarios/:id", UsuarioControl.upd);
 routes.delete("/usuarios/:id", UsuarioControl.del);
+routes.post("/login", UsuarioControl.login);
 
 
 //rotas Configuração
@@ -52,6 +53,7 @@ routes.delete("/disciplinas/:id", DisciplinaControl.del);
 routes.post("/participantes", ParticipanteControl.reg );
 routes.get("/participantes", ParticipanteControl.list );
 routes.get("/participantes/:id", ParticipanteControl.getOne );
+routes.get("/participantes/user/:id", ParticipanteControl.getByUser );
 routes.post("/participantes/:id", ParticipanteControl.upd);
 routes.delete("/participantes/:id", ParticipanteControl.del);
 

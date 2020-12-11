@@ -6,6 +6,7 @@ const reg = async (req, res) => {
     const { descricao, configuracao_id } = req.body;
     let config = undefined;
     try {
+        console.log(configuracao_id)
         config  = await Config.findByPk(configuracao_id);
         if(config){
 
@@ -23,7 +24,7 @@ const reg = async (req, res) => {
 }
 const list = async (req, res) => {
     try {
-        const papel = await Papel.findAll();
+        const papel = await Papel.findAll({include:[{model:Config}]});
         res.status(200).json(papel);
     } catch (error) {
         console.log(error)

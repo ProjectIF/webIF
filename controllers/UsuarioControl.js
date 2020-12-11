@@ -1,4 +1,5 @@
 const Usuario = require("../models/Usuario");
+const bcrypt = require('bcryptjs')
 
 
 const reg = async (req, res) => {
@@ -51,5 +52,30 @@ const del = async (req,res) =>{
         res.status(400).json(error);
     }
 }
+const login  = async (req, res) => {
+    let email = req.body.email;
+    let pass = req.body.password;
+    let msg = "";
+    try {
+        let user = await Usuario.findOne({where:{email}})
+        if(user){
+            if (await bcrypt.compare(pass, user.senha)){
+                user.senha = "";
+                res.status(200).json(user);
+            }else{
+                msg = "Senha invalida";
+                res.status(200).json({msg:msg});
+            }
+        }else{
+            msg = "Usuario com este email não existe";
+            res.status(200).json({msg:msg});
+        }
+    } catch (error) {
+        console.log("error :", error)
+    }
+   
 
-module.exports = { reg, upd, list, del }
+
+}
+
+module.exports = { reg, upd, list, del, login }

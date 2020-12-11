@@ -2,25 +2,25 @@ const Participante = require("../models/Participante");
 const Usuario = require("../models/Usuario");
 const Papel = require("../models/Papel");
 const Disciplina = require("../models/Disciplina");
+const Configuracao = require("../models/Configuracao");
 
 
 const reg = async (req, res) => {
-    const { usuario, papel, matricula, disciplina } = req.body;
+    const { usuarios, papel, disciplina } = req.body;
     let u = undefined
     let p = undefined
     let d = undefined
+    console.log("usuarios", usuarios)
 
-  
-        try {
-            u = await Usuario.findByPk(usuario);
+    try {
+        for (let i = 0; i < usuarios.length; i++) {
+            u = await Usuario.findByPk(usuarios[i]);
             p = await Papel.findByPk(papel);
             d = await Disciplina.findByPk(disciplina);
-
             if (u) {
                 if (p) {
                     if (d) {
-                        const participante = await Participante.create({ UsuarioId: u.id, PapelId: p.id, matricula: matricula, DisciplinaId: d.id });
-                        res.status(200).json("Participantes inseridos com sucesso");
+                        const participante = await Participante.create({ UsuarioId: u.id, PapelId: p.id, DisciplinaId: d.id });
                     } else {
                         throw "Disicplina não existe"
                     }
@@ -30,18 +30,22 @@ const reg = async (req, res) => {
             } else {
                 throw "Usuario não existe"
             }
-        } catch (error) {
-            console.log(error)
-            res.status(400).json(error);
         }
+        res.status(200).json("Participantes inseridos com sucesso");
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error);
+    }
 
-    
- 
-   
+
+
+
+
+
 }
 const list = async (req, res) => {
     try {
-        const participante = await Participante.findAll({include:[{model:Papel},{model:Disciplina},{model:Usuario, attributes: { exclude: ['senha']}} ]});
+        const participante = await Participante.findAll({ include: [{ model: Papel }, { model: Disciplina }, { model: Usuario, attributes: { exclude: ['senha'] } }] });
         res.status(200).json(participante);
     } catch (error) {
         console.log(error)
@@ -50,9 +54,11 @@ const list = async (req, res) => {
 
 }
 const getOne = async (req, res) => {
-    const id = req.params.id ;
+    const id = req.params.id;
+    
     try {
-        const participante = await Participante.findOne({ where: { id:id }, include:[{model:Papel},{model:Disciplina},{model:Usuario, attributes: { exclude: ['senha'] }}]  });
+        const participante = await Participante.findOne({ where: { id: id }, include: [{ model: Papel }, { model: Disciplina }, { model: Usuario, attributes: { exclude: ['senha'] } }] });
+        console.log("participante", participante);
         res.status(200).json(participante);
     } catch (error) {
         console.log(error)
@@ -60,6 +66,20 @@ const getOne = async (req, res) => {
     }
 
 }
+const getByUser = async (req, res) => {
+    const id = req.params.id;
+    
+    try {
+        const participante = await Participante.findOne({ where: { UsuarioId: id }, include: [{ model: Papel, include:{model:Configuracao} }, { model: Disciplina }, { model: Usuario, attributes: { exclude: ['senha'] } }] });
+        console.log("participante", participante);
+        res.status(200).json(participante);
+    } catch (error) {
+        console.log(error)
+        res.status(400).send(error);
+    }
+
+}
+
 const upd = async (req, res) => {
     const { usuario, papel, matricula, disciplina } = req.body;
     const id = req.params.id;
@@ -112,4 +132,4 @@ const del = async (req, res) => {
     }
 }
 
-module.exports = { reg, upd, getOne, list, del }
+module.exports = { reg, upd, getOne, list, del, getByUser }
